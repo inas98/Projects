@@ -5,34 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
     <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 	
-	<img src="images/profile.jpeg" alt="Profile Photo" class="profile">
     <header>
+        <img src="images/profile.jpeg" alt="Profile Photo" class="profile">
         <h1>Hi, I'm Iffa Nasyirah</h1>
-        <p>System Developer | RPA</p>
+        <p>Software Engineer</p>
     </header>
 
     <section class="card">
         <h2>About Me</h2>
         <p>
-            I build low-code solutions, automation systems, and backend applications 
-            to improve business processes and efficiency.
+            I have experience using low code solutions, automation tools, API integration, console application and SQL query.
         </p>
+
+        <a href="cv.pdf" download class="button">Download CV</a>
     </section>
 
     <section class="card">
         <h2>Projects</h2>
-        <div class="project">
-            <img src="images/MyMakanLogin.jpeg" alt="Project Screenshot">
-            <img src="images/MyMakanStatus.jpeg" alt="Project Screenshot">
-            <img src="images/MyMakanMealOrderByWard.png" alt="Project Screenshot">
-            <img src="images/MyMakanNewOrder.jpeg" alt="Project Screenshot">
-            <img src="images/MyMakanSidebar.jpeg" alt="Project Screenshot">
-            <p>Hospital Meal Ordering System</p>
-        </div>
+        <div class="slider">
+        <button class="prev" onclick="moveSlide(-1)">❮</button>
+        <div class="slide-container">
+            <img src="images/MyMakanLogin.jpeg" alt="Project Screenshot" class="slide active">
+            <img src="images/MyMakanStatus.jpeg" alt="Project Screenshot" class="slide">
+            <img src="images/MyMakanMealOrderByWard.png" alt="Project Screenshot" class="slide">
+            <img src="images/MyMakanNewOrder.jpeg" alt="Project Screenshot" class="slide">
+            <img src="images/MyMakanSidebar.jpeg" alt="Project Screenshot" class="slide">
 
+            <button class="next" onclick="moveSlide(1)">❯</button>
+            
+        </div>
+        <h3 style="text-align: center;">Hospital Meal Ordering System</h3>
         <!-- <ul>
             <li>Hospital Meal Ordering System</li>
             <li>Sales Automation (RPA + API Integration)</li>
@@ -43,7 +51,67 @@
     <section class="card">
         <h2>Contact</h2>
         <p>Email: iffanasyirah@gmail.com</p>
+        <a href="mailto:iffanasyirah@gmail.com?subject=Job Opportunity&body=Hi, I would like to connect with you regarding a role." class="button-secondary">✉️ Send Email</a>
+        
+        <div class="social-icons">
+
+            <a href="https://linkedin.com/in/iffa98" target="_blank" class="icon-btn">
+                <i class="fa-brands fa-linkedin"></i>
+            </a>
+
+            <a href="https://github.com/inas98" target="_blank" class="icon-btn">
+                <i class="fa-brands fa-github"></i>
+            </a>
+
+        </div>
+
     </section>
 
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll(".slide");
+        let autoSlide;
+
+        // Show slide
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove("active"));
+            slides[index].classList.add("active");
+        }
+
+        // Move slide (manual)
+        function moveSlide(step) {
+            currentSlide += step;
+
+            if (currentSlide >= slides.length) currentSlide = 0;
+            if (currentSlide < 0) currentSlide = slides.length - 1;
+
+            showSlide(currentSlide);
+            resetAutoSlide(); // reset timer when user clicks
+        }
+
+        // Auto slide
+        function startAutoSlide() {
+            autoSlide = setInterval(() => {
+                currentSlide++;
+                if (currentSlide >= slides.length) currentSlide = 0;
+                showSlide(currentSlide);
+            }, 3000); // change every 3 seconds
+        }
+
+        // Reset timer
+        function resetAutoSlide() {
+            clearInterval(autoSlide);
+            startAutoSlide();
+        }
+
+        // Initialize
+        showSlide(currentSlide);
+        startAutoSlide();
+
+        const slider = document.querySelector(".slider");
+
+        slider.addEventListener("mouseover", () => clearInterval(autoSlide));
+        slider.addEventListener("mouseout", startAutoSlide);
+    </script>
 </body>
 </html>
